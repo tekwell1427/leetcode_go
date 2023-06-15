@@ -26,6 +26,14 @@ func deleteNode(root *TreeNode, key int) *TreeNode {
 		if node == nil {
 			return nil
 		}
+		if node.Val < key {
+			node.Right = helper(node.Right)
+			return node
+		}
+		if node.Val > key {
+			node.Left = helper(node.Left)
+			return node
+		}
 		if node.Val == key {
 			if node.Left != nil && node.Right != nil {
 				right := getRightNodeDeepestLeft(node.Right)
