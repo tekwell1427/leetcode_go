@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -27,7 +26,6 @@ func solveNQueens(n int) [][]string {
 		preColIdx := 0
 		for preColIdx < n {
 			if !isConflict(subOutput, preColIdx, n) {
-				fmt.Println(subOutput, "&&", preColIdx)
 				s := strings.Repeat(".", preColIdx) + "Q" + strings.Repeat(".", n-preColIdx-1)
 				subOutput = append(subOutput, s)
 				helper(preRowIdx, subOutput)
