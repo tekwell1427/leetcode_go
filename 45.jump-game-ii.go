@@ -13,18 +13,18 @@ func jump(nums []int) int {
 	}
 	// sure to reach desination now
 	count := 0
-	maxRangeIdx := nums[0] + 0
+	maxIdx := nums[0] + 0
 	checkPointIdx := nums[0] + 0
-	for i := 1; i < len(nums); i++ {
-		curMaxIdx := nums[i] + i
-		maxRangeIdx = max(maxRangeIdx, curMaxIdx)
+	for i, num := range nums {
 		if checkPointIdx >= len(nums)-1 {
 			count++
 			break
 		}
+		curMaxIdx := num + i
+		maxIdx = max(maxIdx, curMaxIdx)
 		if checkPointIdx == i {
 			count++
-			checkPointIdx = maxRangeIdx
+			checkPointIdx = maxIdx
 		}
 	}
 
