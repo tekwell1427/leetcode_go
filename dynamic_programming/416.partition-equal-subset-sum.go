@@ -20,9 +20,9 @@ func canPartition(nums []int) bool {
 	dp := make([]int, mean+1)
 	for objectIdx := 0; objectIdx < len(nums); objectIdx++ {
 		num := nums[objectIdx]
-		for j := mean; j >= num; j-- {
-			if dp[j-num]+num <= mean {
-				dp[j] = max(dp[j], dp[j-num]+num)
+		for bagSize := mean; bagSize >= num; bagSize-- {
+			if dp[bagSize-num]+num <= mean {
+				dp[bagSize] = max(dp[bagSize], dp[bagSize-num]+num)
 			}
 		}
 	}
