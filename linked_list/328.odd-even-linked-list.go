@@ -26,7 +26,7 @@ func oddEvenList(head *ListNode) *ListNode {
 	curEvenNode := head.Next
 	curOddNode := head
 
-	for curEvenNode != nil && curEvenNode.Next != nil {
+	for curOddNode.Next != nil && curOddNode.Next.Next != nil {
 		nextEvenNode := curEvenNode.Next.Next
 		nextOddNode := curOddNode.Next.Next
 
