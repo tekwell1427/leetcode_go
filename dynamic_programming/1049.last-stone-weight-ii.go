@@ -8,22 +8,22 @@ package main
 
 // @lc code=start
 func lastStoneWeightII(stones []int) int {
-	var sum int
+	stoneSum := 0
 	for _, stone := range stones {
-		sum += stone
+		stoneSum += stone
 	}
-	mean := sum / 2
+	mean := stoneSum / 2
+
 	dp := make([]int, mean+1)
 
-	for objectIdx := 0; objectIdx < len(stones); objectIdx++ {
-		stone := stones[objectIdx]
-		for bagSize := mean; bagSize >= stone; bagSize-- {
-			if dp[bagSize-stone]+stone <= mean {
-				dp[bagSize] = max(dp[bagSize], dp[bagSize-stone]+stone)
+	for _, stone := range stones {
+		for curMean := mean; curMean >= 0; curMean-- {
+			if curMean >= stone {
+				dp[curMean] = max(dp[curMean], dp[curMean-stone]+stone)
 			}
 		}
 	}
-	return sum - 2*dp[len(dp)-1]
+	return stoneSum - 2*dp[mean]
 }
 func max(a, b int) int {
 	if a > b {
