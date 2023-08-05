@@ -8,25 +8,25 @@ package main
 
 // @lc code=start
 func canPartition(nums []int) bool {
-	var sum int
+	numSum := 0
 	for _, num := range nums {
-		sum += num
+		numSum += num
 	}
-	if sum%2 == 1 {
+	if numSum%2 != 0 {
 		return false
 	}
-	mean := sum / 2
+	mean := numSum / 2
 
 	dp := make([]int, mean+1)
-	for objectIdx := 0; objectIdx < len(nums); objectIdx++ {
-		num := nums[objectIdx]
-		for bagSize := mean; bagSize >= num; bagSize-- {
-			if dp[bagSize-num]+num <= mean {
-				dp[bagSize] = max(dp[bagSize], dp[bagSize-num]+num)
+
+	for _, num := range nums {
+		for curMean := mean; curMean >= 0; curMean-- {
+			if curMean >= num {
+				dp[curMean] = max(dp[curMean], dp[curMean-num]+num)
 			}
 		}
 	}
-	return dp[len(dp)-1] == mean
+	return dp[mean] == mean
 }
 func max(a, b int) int {
 	if a > b {
