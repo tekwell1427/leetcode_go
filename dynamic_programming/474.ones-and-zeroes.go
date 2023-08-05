@@ -28,14 +28,6 @@ func findMaxForm(strs []string, m int, n int) int {
 				dp[curM][curN] = max(dp[curM][curN], dp[curM-zeroCount][curN-oneCount]+1)
 			}
 		}
-
-		// for curM := m; curM >= 0; curM-- {
-		// 	for curN := n; curN >= 0; curN-- {
-		// 		if curM >= zeroCount && curN >= oneCount {
-		// 			dp[curM][curN] = max(dp[curM][curN], dp[curM-zeroCount][curN-oneCount]+1)
-		// 		}
-		// 	}
-		// }
 	}
 	return dp[m][n]
 }
