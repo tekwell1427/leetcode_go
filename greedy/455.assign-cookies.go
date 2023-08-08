@@ -1,6 +1,8 @@
 package main
 
-import "sort"
+import (
+	"sort"
+)
 
 /*
  * @lc app=leetcode id=455 lang=golang
@@ -12,17 +14,19 @@ import "sort"
 func findContentChildren(g []int, s []int) int {
 	sort.Ints(g)
 	sort.Ints(s)
-	curChidIdx := 0
-	for _, cookieSize := range s {
 
-		if cookieSize >= g[curChidIdx] {
-			curChidIdx++
-			if curChidIdx == len(g) {
+	numChild := 0
+	for _, cookie := range s {
+
+		if cookie >= g[numChild] {
+			numChild++
+			if numChild == len(g) {
 				break
 			}
 		}
 	}
-	return curChidIdx
+
+	return numChild
 }
 
 // @lc code=end
