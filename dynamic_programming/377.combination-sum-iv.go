@@ -11,9 +11,7 @@ func combinationSum4(nums []int, target int) int {
 	dp := make([]int, target+1)
 	dp[0] = 1
 
-	// bagsize first!
 	for curTarget := 0; curTarget <= target; curTarget++ {
-		// get maximum number of arragement in curTarget
 		for _, num := range nums {
 			if curTarget >= num {
 				dp[curTarget] += dp[curTarget-num]
