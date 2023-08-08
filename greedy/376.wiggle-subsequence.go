@@ -9,25 +9,21 @@ package main
 // @lc code=start
 func wiggleMaxLength(nums []int) int {
 	if len(nums) < 2 {
+		// 0 or 1
 		return len(nums)
 	}
-	count := 1
-	preDiff := nums[1] - nums[0]
-	if preDiff != 0 {
-		count = 2
-	}
-	for i := 2; i < len(nums); i++ {
-		curDiff := (nums[i] - nums[i-1])
-		if (preDiff >= 0 && curDiff < 0) || (preDiff <= 0 && curDiff > 0) {
-			count++
-			// third situation:
-			// only change positive/negtive vector when we meet peak/valley
+	preDiff := 0
+	output := 1
+
+	for i := 0; i < len(nums)-1; i++ {
+		curDiff := nums[i+1] - nums[i]
+
+		if preDiff <= 0 && curDiff > 0 || preDiff >= 0 && curDiff < 0 {
+			output++
 			preDiff = curDiff
 		}
-		// preDiff = curDiff
 	}
-	return count
-
+	return output
 }
 
 // @lc code=end
