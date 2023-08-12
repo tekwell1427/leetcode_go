@@ -8,18 +8,15 @@ package main
 
 // @lc code=start
 func canJump(nums []int) bool {
-	maxIdx := 0
+	curJumpMaxIdx := 0
+
 	for i, num := range nums {
-		if i > maxIdx {
+		if i > curJumpMaxIdx {
 			return false
 		}
-		curMaxIdx := i + num
-		maxIdx = max(maxIdx, curMaxIdx)
-		if maxIdx >= len(nums)-1 {
-			return true
-		}
+		curJumpMaxIdx = max(curJumpMaxIdx, i+num)
 	}
-	return false
+	return true
 }
 func max(a, b int) int {
 	if a > b {
