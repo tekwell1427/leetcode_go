@@ -8,17 +8,14 @@ package main
 
 // @lc code=start
 func maxProfit(prices []int) int {
-	if len(prices) < 2 {
-		return 0
-	}
-	sum := 0
-	for i := 1; i < len(prices); i++ {
-		profit := prices[i] - prices[i-1]
-		if profit > 0 {
-			sum += profit
+	max := 0
+
+	for i := 0; i < len(prices)-1; i++ {
+		if prices[i+1] > prices[i] {
+			max += prices[i+1] - prices[i]
 		}
 	}
-	return sum
+	return max
 }
 
 // @lc code=end
