@@ -5,10 +5,6 @@ package main
  *
  * [206] Reverse Linked List
  */
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
 
 // @lc code=start
 /**
@@ -20,16 +16,15 @@ type ListNode struct {
  */
 func reverseList(head *ListNode) *ListNode {
 	var dummy *ListNode
-	preNode := dummy
-	curNode := head
-	for curNode != nil {
-		nextNode := curNode.Next
-		curNode.Next = preNode
+	pre := dummy
 
-		preNode = curNode
-		curNode = nextNode
+	for head != nil {
+		next := head.Next
+		head.Next = pre
+		pre = head
+		head = next
 	}
-	return preNode
+	return pre
 }
 
 // @lc code=end
