@@ -15,7 +15,7 @@ package main
  * }
  */
 func swapPairs(head *ListNode) *ListNode {
-	dummy := &ListNode{}
+	dummy := &ListNode{Next: head}
 	pre := dummy
 
 	for head != nil && head.Next != nil {
@@ -25,9 +25,9 @@ func swapPairs(head *ListNode) *ListNode {
 		next.Next = head
 		pre = head
 		head = newHead
-
+		pre.Next = head
 	}
-	pre.Next = head
+
 	return dummy.Next
 }
 
