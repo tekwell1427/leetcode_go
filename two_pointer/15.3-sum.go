@@ -19,6 +19,10 @@ func threeSum(nums []int) [][]int {
 		if first > 0 && nums[first] == nums[first-1] {
 			continue
 		}
+		// prune
+		if nums[first] > 0 {
+			break
+		}
 		third := len(nums) - 1
 		second := first + 1
 		for second < third {
