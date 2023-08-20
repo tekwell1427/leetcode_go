@@ -5,10 +5,6 @@ package main
  *
  * [19] Remove Nth Node From End of List
  */
-type ListNode struct {
-	Val  int
-	Next *ListNode
-}
 
 // @lc code=start
 /**
@@ -24,16 +20,17 @@ func removeNthFromEnd(head *ListNode, n int) *ListNode {
 	for i := 0; i < n; i++ {
 		fast = fast.Next
 	}
-	pseudo := &ListNode{}
-	pre := pseudo
+
+	dummy := &ListNode{Next: head}
+	pre := dummy
 	for fast != nil {
-		pre.Next = slow
+		fast = fast.Next
 		pre = slow
 		slow = slow.Next
-		fast = fast.Next
 	}
 	pre.Next = slow.Next
-	return pseudo.Next
+
+	return dummy.Next
 }
 
 // @lc code=end
