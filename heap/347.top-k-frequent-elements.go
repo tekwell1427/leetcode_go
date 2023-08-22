@@ -28,13 +28,6 @@ func topKFrequent(nums []int, k int) []int {
 			heap.Pop(my)
 		}
 	}
-
-	// output := []int{}
-	// for i := 0; i < k; i++ {
-	// 	output = append(output, heap.Pop(my).(int))
-	// }
-
-	// my.nums only has top k:
 	return my.nums
 }
 
