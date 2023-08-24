@@ -7,73 +7,70 @@ package main
  */
 
 // @lc code=start
-type LRUCache struct {
-	head, tail *DLinkedNode
-	cache      map[int]*DLinkedNode
-	capacity   int
-	size       int
+type DoublyLinkedNode struct {
+	pre  *DoublyLinkedNode
+	next *DoublyLinkedNode
+	val  int
+	key  int
 }
-
-type DLinkedNode struct {
-	pre, next *DLinkedNode
-	key, val  int
+type LRUCache struct {
+	record   map[int]*DoublyLinkedNode
+	head     *DoublyLinkedNode
+	tail     *DoublyLinkedNode
+	capacity int
+	length   int
 }
 
 func Constructor(capacity int) LRUCache {
-	head := &DLinkedNode{key: 0, val: 0}
-	tail := &DLinkedNode{key: 0, val: 0}
-	head.next = tail
-	tail.pre = head
+	dummy := &DoublyLinkedNode{}
+	dummy.pre = dummy
+	dummy.next = dummy
 	return LRUCache{
-		head:     head,
-		tail:     tail,
+		record:   make(map[int]*DoublyLinkedNode),
+		head:     dummy,
+		tail:     dummy,
 		capacity: capacity,
-		size:     0,
-		cache:    map[int]*DLinkedNode{},
+		length:   0,
 	}
 }
 
 func (this *LRUCache) Get(key int) int {
-	if node, exists := this.cache[key]; exists {
-		this.moveToHead(node)
-		return node.val
+	output := -1
+	if node, exits := this.record[key]; exits {
+		output = node.val
+		this.DeleteNode(node)
+		this.AddNodeTohead(node)
 	}
-	return -1
+	return output
 }
 
 func (this *LRUCache) Put(key int, value int) {
-	if node, exists := this.cache[key]; exists {
+	if node, exits := this.record[key]; exits {
 		node.val = value
-		this.moveToHead(node)
+		this.DeleteNode(node)
+		this.AddNodeTohead(node)
 	} else {
-		newNode := &DLinkedNode{key: key, val: value}
-		this.addToHead(newNode)
-		this.cache[key] = newNode
-		this.size++
-		if this.size > this.capacity {
-			delete(this.cache, this.tail.pre.key)
-			this.deleteTailNode()
-			this.size--
-		}
+		node := &DoublyLinkedNode{key: key, val: value}
+		this.record[key] = node
+		this.AddNodeTohead(node)
+		this.length++
+	}
+	if this.length > this.capacity {
+		delete(this.record, this.tail.pre.key)
+		this.DeleteNode(this.tail.pre)
+		this.length--
 	}
 }
-func (this *LRUCache) moveToHead(node *DLinkedNode) {
-	this.deleteNode(node)
-	this.addToHead(node)
-}
-func (this *LRUCache) addToHead(node *DLinkedNode) {
-	node.pre = this.head
-	node.next = this.head.next
-	this.head.next.pre = node
-	this.head.next = node
-}
-
-func (this *LRUCache) deleteNode(node *DLinkedNode) {
+func (this *LRUCache) DeleteNode(node *DoublyLinkedNode) {
 	node.pre.next = node.next
 	node.next.pre = node.pre
+	node.next, node.pre = nil, nil
 }
-func (this *LRUCache) deleteTailNode() {
-	this.deleteNode(this.tail.pre)
+func (this *LRUCache) AddNodeTohead(node *DoublyLinkedNode) {
+	this.head.next.pre = node
+	node.next = this.head.next
+	this.head.next = node
+	node.pre = this.head
 }
 
 /**
