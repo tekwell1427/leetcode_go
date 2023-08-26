@@ -16,7 +16,7 @@ package main
  * }
  */
 func rob(root *TreeNode) int {
-	// first: steal current house, second: steal without current house
+	// dp[0]: steal current house, dp[1]: steal without current house
 	var helper func(node *TreeNode) [2]int
 	helper = func(node *TreeNode) [2]int {
 		if node == nil {
@@ -30,6 +30,8 @@ func rob(root *TreeNode) int {
 		// steal with current house:
 		withCur := left[1] + right[1] + node.Val
 		withoutCur := max(left[0], left[1]) + max(right[0], right[1])
+		// line:32 equalvalent with:
+		// withoutCur := max(max(max(left[0]+right[0], left[0]+right[1]), left[1]+right[0]), left[1]+right[1])
 
 		return [2]int{withCur, withoutCur}
 	}
