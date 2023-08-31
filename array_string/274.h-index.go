@@ -20,13 +20,6 @@ func hIndex(citations []int) int {
 		}
 		h--
 	}
-	// for i := len(citations) - 1; i >= 0; i-- {
-	// 	if citations[i] <= h {
-	// 		return h
-	// 	}
-	// 	h--
-	// }
-
 	return h
 }
 
