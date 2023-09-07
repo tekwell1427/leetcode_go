@@ -50,6 +50,7 @@ func copyRandomList(head *Node) *Node {
 	for old != nil {
 		old.Next = new.Next
 		old = old.Next
+		// if old is end now
 		if old != nil {
 			new.Next = new.Next.Next
 			new = new.Next
